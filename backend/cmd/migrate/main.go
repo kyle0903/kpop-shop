@@ -22,7 +22,8 @@ func main() {
 	if err := db.AutoMigrate(
 		&models.Product{},
 		&models.ProductVersion{},
-		// 之後有 Cart 的 table 也加進來
+		&models.Order{},
+		&models.OrderItem{},
 	); err != nil {
 		log.Fatalf("auto migrate failed: %v", err)
 	}
