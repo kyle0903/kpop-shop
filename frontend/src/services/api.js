@@ -97,3 +97,96 @@ export const cartApi = {
     return response.json()
   }
 }
+
+// 管理者 API
+export const adminApi = {
+  // 建立商品
+  async createProduct(data) {
+    const response = await fetch(`${API_BASE_URL}/admin/products`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to create product')
+    return response.json()
+  },
+
+  // 更新商品
+  async updateProduct(id, data) {
+    const response = await fetch(`${API_BASE_URL}/admin/products/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to update product')
+    return response.json()
+  },
+
+  // 刪除商品
+  async deleteProduct(id) {
+    const response = await fetch(`${API_BASE_URL}/admin/products/${id}`, {
+      method: 'DELETE'
+    })
+    if (!response.ok) throw new Error('Failed to delete product')
+    return response.json()
+  },
+
+  // 建立版本
+  async createVersion(productId, data) {
+    const response = await fetch(`${API_BASE_URL}/admin/products/${productId}/versions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to create version')
+    return response.json()
+  },
+
+  // 更新版本
+  async updateVersion(productId, versionId, data) {
+    const response = await fetch(`${API_BASE_URL}/admin/products/${productId}/versions/${versionId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to update version')
+    return response.json()
+  },
+
+  // 刪除版本
+  async deleteVersion(productId, versionId) {
+    const response = await fetch(`${API_BASE_URL}/admin/products/${productId}/versions/${versionId}`, {
+      method: 'DELETE'
+    })
+    if (!response.ok) throw new Error('Failed to delete version')
+    return response.json()
+  },
+
+  // 上傳圖片
+  async uploadImage(file, artist = '', productName = '') {
+    const formData = new FormData()
+    formData.append('file', file)
+    if (artist) formData.append('artist', artist)
+    if (productName) formData.append('product_name', productName)
+
+    const response = await fetch(`${API_BASE_URL}/admin/upload`, {
+      method: 'POST',
+      body: formData
+    })
+    if (!response.ok) throw new Error('Failed to upload image')
+    return response.json()
+  },
+
+  // 上傳多張圖片
+  async uploadMultipleImages(files) {
+    const formData = new FormData()
+    files.forEach(file => formData.append('files', file))
+
+    const response = await fetch(`${API_BASE_URL}/admin/upload/multiple`, {
+      method: 'POST',
+      body: formData
+    })
+    if (!response.ok) throw new Error('Failed to upload images')
+    return response.json()
+  }
+}

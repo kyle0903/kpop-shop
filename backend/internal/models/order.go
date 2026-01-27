@@ -44,7 +44,7 @@ type ShippingInfo struct {
 }
 
 // Scan 從資料庫讀取 JSON
-func (s *ShippingInfo) Scan(value interface{}) error {
+func (s *ShippingInfo) Scan(value any) error {
 	if value == nil {
 		return nil
 	}

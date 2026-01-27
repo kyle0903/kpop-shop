@@ -30,6 +30,7 @@ func SetupRouter(productRepo *repository.ProductRepository, cartRepo *repository
 	// 初始化 handlers
 	productHandler := handlers.NewProductHandler(productRepo)
 	cartHandler := handlers.NewCartHandler(cartRepo, productRepo)
+	uploadHandler := handlers.NewUploadHandler()
 
 	// API 路由
 	api := r.Group("/api")
@@ -46,6 +47,24 @@ func SetupRouter(productRepo *repository.ProductRepository, cartRepo *repository
 		api.PUT("/cart/:id", cartHandler.UpdateCartItem)
 		api.DELETE("/cart/:id", cartHandler.RemoveCartItem)
 		api.DELETE("/cart", cartHandler.ClearCart)
+
+		// 管理者 API
+		admin := api.Group("/admin")
+		{
+			// 商品 CRUD
+			admin.POST("/products", productHandler.CreateProduct)
+			admin.PUT("/products/:id", productHandler.UpdateProduct)
+			admin.DELETE("/products/:id", productHandler.DeleteProduct)
+
+			// 商品版本
+			admin.POST("/products/:id/versions", productHandler.CreateVersion)
+			admin.PUT("/products/:id/versions/:versionId", productHandler.UpdateVersion)
+			admin.DELETE("/products/:id/versions/:versionId", productHandler.DeleteVersion)
+
+			// 圖片上傳
+			admin.POST("/upload", uploadHandler.UploadImage)
+			admin.POST("/upload/multiple", uploadHandler.UploadMultipleImages)
+		}
 	}
 
 	return r

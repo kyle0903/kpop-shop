@@ -1,0 +1,87 @@
+.multi-image-uploader {
+  margin-top: 12px;
+}
+
+.multi-image-uploader .uploader-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.image-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-item .remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(198, 40, 40, 0.9);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.image-item:hover .remove-btn {
+  opacity: 1;
+}
+
+.add-image-btn {
+  aspect-ratio: 1;
+  border: 2px dashed #d0d0d0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #666;
+  background: transparent;
+  font-size: 14px;
+}
+
+.add-image-btn:hover:not(.uploading) {
+  border-color: #e91e63;
+  background: #fce4ec;
+  color: #e91e63;
+}
+
+.add-image-btn.uploading {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.add-image-btn .plus-icon {
+  font-size: 26px;
+  font-weight: 300;
+}

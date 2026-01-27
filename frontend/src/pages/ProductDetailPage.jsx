@@ -231,11 +231,24 @@ function ProductDetailPage({ updateCartCount }) {
               <div className="version-section">
                 <h3 className="section-label">選擇版本</h3>
                 <div className="version-options">
-                  {product.versions.map(version => (
+                  {product.versions.map((version, index) => (
                     <button
                       key={version.id}
                       className={`version-option ${selectedVersion?.id === version.id ? 'selected' : ''}`}
-                      onClick={() => setSelectedVersion(version)}
+                      onClick={() => {
+                        setSelectedVersion(version)
+                        // 切換到對應版本的圖片
+                        const versionPrimaryImage = version.images?.[0] || version.image_url
+                        if (versionPrimaryImage && product.images?.length > 0) {
+                          const imageIndex = product.images.findIndex(img => img === versionPrimaryImage)
+                          if (imageIndex !== -1) {
+                            setCurrentImageIndex(imageIndex)
+                          }
+                        } else if (product.images?.length > index) {
+                          // 如果沒有版本圖片，按版本順序顯示
+                          setCurrentImageIndex(index)
+                        }
+                      }}
                     >
                       <span className="version-name">{version.name}</span>
                       <span className="version-price">NT$ {version.price?.toLocaleString()}</span>

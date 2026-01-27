@@ -27,13 +27,14 @@ const (
 
 // ProductVersion 商品版本
 type ProductVersion struct {
-	ID        string  `json:"id" gorm:"primaryKey;type:varchar(36)"`
-	ProductID string  `json:"product_id" gorm:"type:varchar(36);index"` // 外鍵關聯
-	Name      string  `json:"name" gorm:"type:varchar(100)"`            // 版本名稱（如：A版、B版、隨機版）
-	Price     float64 `json:"price"`                                    // 價格
-	Stock     int     `json:"stock"`                                    // 庫存數量
-	SKU       string  `json:"sku" gorm:"type:varchar(50);uniqueIndex"`              // 商品編號
-	ImageURL  string  `json:"image_url" gorm:"type:varchar(255)"`       // 版本圖片
+	ID        string      `json:"id" gorm:"primaryKey;type:varchar(36)"`
+	ProductID string      `json:"product_id" gorm:"type:varchar(36);index"` // 外鍵關聯
+	Name      string      `json:"name" gorm:"type:varchar(100)"`            // 版本名稱（如：A版、B版、隨機版）
+	Price     float64     `json:"price"`                                    // 價格
+	Stock     int         `json:"stock"`                                    // 庫存數量
+	SKU       string      `json:"sku" gorm:"type:varchar(50);uniqueIndex"`  // 商品編號
+	ImageURL  string      `json:"image_url" gorm:"type:varchar(255)"`       // 版本主圖
+	Images    StringArray `json:"images" gorm:"type:text"`                  // 版本圖片列表
 }
 
 // Product 商品
@@ -60,7 +61,7 @@ type Product struct {
 type StringArray []string
 
 // Scan 從資料庫讀取 JSON
-func (s *StringArray) Scan(value interface{}) error {
+func (s *StringArray) Scan(value any) error {
 	if value == nil {
 		*s = []string{}
 		return nil
@@ -106,4 +107,69 @@ type ProductListResponse struct {
 	Page       int       `json:"page"`
 	PageSize   int       `json:"page_size"`
 	TotalPages int       `json:"total_pages"`
+}
+
+// CreateProductRequest 建立商品請求
+type CreateProductRequest struct {
+	Name            string                 `json:"name" binding:"required"`
+	Artist          string                 `json:"artist" binding:"required"`
+	Description     string                 `json:"description"`
+	Category        Category               `json:"category" binding:"required"`
+	BasePrice       float64                `json:"base_price" binding:"required"`
+	ImageURL        string                 `json:"image_url"`
+	Images          []string               `json:"images"`
+	StockStatus     StockStatus            `json:"stock_status"`
+	IsHot           bool                   `json:"is_hot"`
+	IsNew           bool                   `json:"is_new"`
+	PreorderEndDate *time.Time             `json:"preorder_end_date"`
+	ReleaseDate     *time.Time             `json:"release_date"`
+	Versions        []CreateVersionRequest `json:"versions"`
+}
+
+// UpdateProductRequest 更新商品請求
+type UpdateProductRequest struct {
+	Name            *string                `json:"name"`
+	Artist          *string                `json:"artist"`
+	Description     *string                `json:"description"`
+	Category        *Category              `json:"category"`
+	BasePrice       *float64               `json:"base_price"`
+	ImageURL        *string                `json:"image_url"`
+	Images          []string               `json:"images"`
+	StockStatus     *StockStatus           `json:"stock_status"`
+	IsHot           *bool                  `json:"is_hot"`
+	IsNew           *bool                  `json:"is_new"`
+	PreorderEndDate *time.Time             `json:"preorder_end_date"`
+	ReleaseDate     *time.Time             `json:"release_date"`
+	Versions        []UpsertVersionRequest `json:"versions"`
+}
+
+// CreateVersionRequest 建立版本請求
+type CreateVersionRequest struct {
+	Name     string   `json:"name" binding:"required"`
+	Price    float64  `json:"price" binding:"required"`
+	Stock    int      `json:"stock"`
+	SKU      string   `json:"sku" binding:"required"`
+	ImageURL string   `json:"image_url"`
+	Images   []string `json:"images"`
+}
+
+// UpdateVersionRequest 更新版本請求
+type UpdateVersionRequest struct {
+	Name     *string  `json:"name"`
+	Price    *float64 `json:"price"`
+	Stock    *int     `json:"stock"`
+	SKU      *string  `json:"sku"`
+	ImageURL *string  `json:"image_url"`
+	Images   []string `json:"images"`
+}
+
+// UpsertVersionRequest 用於商品更新時批次同步版本資料
+type UpsertVersionRequest struct {
+	ID       string   `json:"id"`
+	Name     string   `json:"name"`
+	Price    float64  `json:"price"`
+	Stock    int      `json:"stock"`
+	SKU      string   `json:"sku"`
+	ImageURL string   `json:"image_url"`
+	Images   []string `json:"images"`
 }

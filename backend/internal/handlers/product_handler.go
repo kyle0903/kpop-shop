@@ -53,3 +53,103 @@ func (h *ProductHandler) GetArtists(c *gin.Context) {
 	artists := h.repo.GetArtists()
 	c.JSON(http.StatusOK, artists)
 }
+
+// CreateProduct 建立商品
+func (h *ProductHandler) CreateProduct(c *gin.Context) {
+	var req models.CreateProductRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	product, err := h.repo.Create(&req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, product)
+}
+
+// UpdateProduct 更新商品
+func (h *ProductHandler) UpdateProduct(c *gin.Context) {
+	id := c.Param("id")
+
+	var req models.UpdateProductRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	product, err := h.repo.Update(id, &req)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, product)
+}
+
+// DeleteProduct 刪除商品
+func (h *ProductHandler) DeleteProduct(c *gin.Context) {
+	id := c.Param("id")
+
+	if err := h.repo.Delete(id); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Product deleted successfully"})
+}
+
+// CreateVersion 建立商品版本
+func (h *ProductHandler) CreateVersion(c *gin.Context) {
+	productID := c.Param("id")
+
+	var req models.CreateVersionRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	version, err := h.repo.CreateVersion(productID, &req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusCreated, version)
+}
+
+// UpdateVersion 更新商品版本
+func (h *ProductHandler) UpdateVersion(c *gin.Context) {
+	productID := c.Param("id")
+	versionID := c.Param("versionId")
+
+	var req models.UpdateVersionRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	version, err := h.repo.UpdateVersion(productID, versionID, &req)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Version not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, version)
+}
+
+// DeleteVersion 刪除商品版本
+func (h *ProductHandler) DeleteVersion(c *gin.Context) {
+	productID := c.Param("id")
+	versionID := c.Param("versionId")
+
+	if err := h.repo.DeleteVersion(productID, versionID); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Version deleted successfully"})
+}

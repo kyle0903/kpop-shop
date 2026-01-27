@@ -56,8 +56,31 @@ func (s *ProductSeeder) InsertTestProduct() (*models.Product, error) {
 
 	// 建立商品版本
 	versions := []models.ProductVersion{
-		{ID: uuid.New().String(), ProductID: product.ID, Name: "Blue Ver.", Price: 450, Stock: 40, SKU: "JYP-NMIXX-001"},
-		{ID: uuid.New().String(), ProductID: product.ID, Name: "Blue Valentine Ver.", Price: 450, Stock: 35, SKU: "JYP-NMIXX-002"},
+		{
+			ID:        uuid.New().String(),
+			ProductID: product.ID,
+			Name:      "Blue Ver.",
+			Price:     450,
+			Stock:     40,
+			SKU:       "JYP-NMIXX-001",
+			ImageURL:  imagePath + "/versions/blue-1.jpg",
+			Images: models.StringArray{
+				imagePath + "/versions/blue-1.jpg",
+				imagePath + "/versions/blue-2.jpg",
+			},
+		},
+		{
+			ID:        uuid.New().String(),
+			ProductID: product.ID,
+			Name:      "Blue Valentine Ver.",
+			Price:     450,
+			Stock:     35,
+			SKU:       "JYP-NMIXX-002",
+			ImageURL:  imagePath + "/versions/valentine-1.jpg",
+			Images: models.StringArray{
+				imagePath + "/versions/valentine-1.jpg",
+			},
+		},
 	}
 	for _, v := range versions {
 		s.db.Create(&v)
