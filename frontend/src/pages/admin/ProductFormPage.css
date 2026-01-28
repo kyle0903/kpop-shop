@@ -12,41 +12,45 @@
 .page-header h1 {
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .btn-back {
-  color: #666;
+  color: var(--color-text-secondary);
   text-decoration: none;
   padding: 8px 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  background: var(--color-bg-card);
 }
 
 .btn-back:hover {
-  background: #f5f5f5;
+  background: var(--color-bg-card-hover);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-light);
 }
 
 .loading {
   text-align: center;
   padding: 60px;
-  color: #666;
+  color: var(--color-text-muted);
 }
 
 .form-section {
-  background: white;
-  border-radius: 8px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
   padding: 24px;
   margin-bottom: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
 }
 
 .form-section h2 {
   margin: 0 0 20px;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--color-text-primary);
   padding-bottom: 12px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .form-grid {
@@ -67,7 +71,7 @@
 .form-group label {
   margin-bottom: 8px;
   font-weight: 500;
-  color: #333;
+  color: var(--color-text-secondary);
   font-size: 14px;
 }
 
@@ -75,16 +79,20 @@
 .form-group select,
 .form-group textarea {
   padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: 14px;
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #e91e63;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent);
 }
 
 .form-group textarea {
@@ -103,12 +111,16 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
+  color: var(--color-text-primary);
 }
 
 .checkbox-label input[type="checkbox"] {
   width: 18px;
   height: 18px;
   cursor: pointer;
+  accent-color: var(--color-accent);
+  background: var(--color-bg-secondary);
+  border-color: var(--color-border);
 }
 
 .form-actions {
@@ -120,40 +132,44 @@
 
 .btn-cancel {
   padding: 12px 24px;
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 6px;
-  color: #666;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
   text-decoration: none;
   font-weight: 500;
+  transition: all var(--transition-fast);
 }
 
 .btn-cancel:hover {
-  background: #f5f5f5;
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-light);
 }
 
 .btn-submit {
   padding: 12px 32px;
-  background: #e91e63;
+  background: var(--color-accent);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background var(--transition-fast);
 }
 
 .btn-submit:hover {
-  background: #c2185b;
+  background: var(--color-accent-hover);
 }
 
 .btn-submit:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  background: var(--color-text-muted);
 }
 
 .form-hint {
   margin-top: 12px;
   font-size: 13px;
-  color: #666;
+  color: var(--color-text-muted);
 }

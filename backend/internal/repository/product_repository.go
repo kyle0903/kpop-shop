@@ -44,14 +44,8 @@ func (r *ProductRepository) GetAll(filter models.ProductFilter) models.ProductLi
 	query.Model(&models.Product{}).Count(&total)
 
 	// 分頁
-	page := filter.Page
-	if page < 1 {
-		page = 1
-	}
-	pageSize := filter.PageSize
-	if pageSize < 1 {
-		pageSize = 12
-	}
+	page := max(filter.Page, 1)
+	pageSize := max(filter.PageSize, 12)
 
 	query.Offset((page - 1) * pageSize).Limit(pageSize).Find(&products)
 
@@ -75,8 +69,8 @@ func (r *ProductRepository) GetByID(id string) (*models.Product, bool) {
 }
 
 // GetCategories 取得所有分類
-func (r *ProductRepository) GetCategories() []map[string]interface{} {
-	return []map[string]interface{}{
+func (r *ProductRepository) GetCategories() []map[string]any {
+	return []map[string]any{
 		{"id": "album", "name": "專輯", "name_en": "Albums"},
 		{"id": "merchandise", "name": "周邊", "name_en": "Merchandise"},
 		{"id": "preorder", "name": "預購", "name_en": "Pre-order"},

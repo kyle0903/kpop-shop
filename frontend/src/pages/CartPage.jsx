@@ -60,7 +60,7 @@ function CartPage({ updateCartCount }) {
 
   const handleUpdateQuantity = async (itemId, newQuantity) => {
     if (newQuantity < 1) return
-    
+
     setUpdating(itemId)
     try {
       const updatedCart = await cartApi.updateCartItem(itemId, newQuantity)
@@ -69,8 +69,8 @@ function CartPage({ updateCartCount }) {
     } catch (error) {
       console.log('Failed to update cart:', error.message)
       // 模擬更新
-      const newItems = cart.items.map(item => 
-        item.id === itemId 
+      const newItems = cart.items.map(item =>
+        item.id === itemId
           ? { ...item, quantity: newQuantity, subtotal: item.price * newQuantity }
           : item
       )
@@ -149,7 +149,7 @@ function CartPage({ updateCartCount }) {
     <div className="cart-page">
       <div className="container">
         <h1 className="page-title">購物車</h1>
-        
+
         <div className="cart-layout">
           {/* Cart Items */}
           <div className="cart-items">
@@ -170,7 +170,7 @@ function CartPage({ updateCartCount }) {
                     {item.artist?.charAt(0) || 'K'}
                   </div>
                 </div>
-                
+
                 <div className="cart-item-details">
                   <p className="cart-item-artist">{item.artist}</p>
                   <h3 className="cart-item-name">{item.product_name}</h3>
@@ -178,7 +178,7 @@ function CartPage({ updateCartCount }) {
                 </div>
 
                 <div className="cart-item-quantity">
-                  <button 
+                  <button
                     className="quantity-btn"
                     onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
                     disabled={item.quantity <= 1 || updating === item.id}
@@ -186,7 +186,7 @@ function CartPage({ updateCartCount }) {
                     −
                   </button>
                   <span className="quantity-value">{item.quantity}</span>
-                  <button 
+                  <button
                     className="quantity-btn"
                     onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}
                     disabled={updating === item.id}
@@ -200,14 +200,14 @@ function CartPage({ updateCartCount }) {
                   <span className="item-unit-price">NT$ {item.price.toLocaleString()} / 件</span>
                 </div>
 
-                <button 
+                <button
                   className="remove-btn"
                   onClick={() => handleRemoveItem(item.id)}
                   disabled={updating === item.id}
                   aria-label="移除商品"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
                   </svg>
                 </button>
               </div>
@@ -217,7 +217,7 @@ function CartPage({ updateCartCount }) {
           {/* Order Summary */}
           <div className="order-summary">
             <h2 className="summary-title">訂單摘要</h2>
-            
+
             <div className="summary-rows">
               <div className="summary-row">
                 <span>商品小計 ({cart.item_count} 件)</span>
@@ -239,9 +239,9 @@ function CartPage({ updateCartCount }) {
               <span className="total-amount">NT$ {(cart.total + shippingFee).toLocaleString()}</span>
             </div>
 
-            <button className="btn btn-primary btn-lg checkout-btn">
+            <Link to="/checkout" className="btn btn-primary btn-lg checkout-btn">
               前往結帳
-            </button>
+            </Link>
 
             <Link to="/products" className="continue-shopping">
               ← 繼續購物

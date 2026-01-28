@@ -11,7 +11,7 @@ import (
 )
 
 // SetupRouter 設定路由
-func SetupRouter(productRepo *repository.ProductRepository, cartRepo *repository.CartRepository) *gin.Engine {
+func SetupRouter(productRepo *repository.ProductRepository, cartRepo *repository.CartRepository, orderRepo *repository.OrderRepository) *gin.Engine {
 	r := gin.Default()
 
 	// CORS 設定
@@ -30,6 +30,7 @@ func SetupRouter(productRepo *repository.ProductRepository, cartRepo *repository
 	// 初始化 handlers
 	productHandler := handlers.NewProductHandler(productRepo)
 	cartHandler := handlers.NewCartHandler(cartRepo, productRepo)
+	orderHandler := handlers.NewOrderHandler(orderRepo, cartRepo)
 	uploadHandler := handlers.NewUploadHandler()
 
 	// API 路由
@@ -47,6 +48,9 @@ func SetupRouter(productRepo *repository.ProductRepository, cartRepo *repository
 		api.PUT("/cart/:id", cartHandler.UpdateCartItem)
 		api.DELETE("/cart/:id", cartHandler.RemoveCartItem)
 		api.DELETE("/cart", cartHandler.ClearCart)
+
+		// 訂單相關
+		api.POST("/orders", orderHandler.CreateOrder)
 
 		// 管理者 API
 		admin := api.Group("/admin")

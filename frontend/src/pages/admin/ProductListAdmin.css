@@ -12,21 +12,21 @@
 .page-header h1 {
   margin: 0;
   font-size: 1.5rem;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .btn-primary {
-  background: #e91e63;
+  background: var(--color-accent);
   color: white;
   padding: 10px 20px;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: background var(--transition-fast);
 }
 
 .btn-primary:hover {
-  background: #c2185b;
+  background: var(--color-accent-hover);
 }
 
 .filters {
@@ -44,121 +44,133 @@
 .search-form input {
   flex: 1;
   padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 6px 0 0 6px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
   font-size: 14px;
+  color: var(--color-text-primary);
 }
 
 .search-form button {
   padding: 10px 20px;
-  background: #333;
-  color: white;
-  border: none;
-  border-radius: 0 6px 6px 0;
+  background: var(--color-bg-card-hover);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-left: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
   cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.search-form button:hover {
+  background: var(--color-border);
 }
 
 .filters select {
   padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: 14px;
   min-width: 120px;
+  color: var(--color-text-primary);
 }
 
-.loading, .empty {
+.loading,
+.empty {
   text-align: center;
   padding: 60px;
-  color: #666;
-  background: white;
-  border-radius: 8px;
+  color: var(--color-text-muted);
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
 }
 
 .product-table {
   width: 100%;
-  background: white;
-  border-radius: 8px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
 }
 
 .product-table th,
 .product-table td {
   padding: 14px 16px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .product-table th {
-  background: #f8f9fa;
+  background: var(--color-bg-secondary);
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-secondary);
 }
 
 .product-table td {
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .product-table tbody tr:hover {
-  background: #f8f9fa;
+  background: var(--color-bg-card-hover);
 }
 
 .product-thumb {
   width: 50px;
   height: 50px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .product-name {
   display: flex;
   align-items: center;
-  gap: 8px;
-  color: #333;
+  gap: 12px;
+  color: var(--color-text-primary);
 }
 
 .badge {
   font-size: 10px;
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
 }
 
 .badge.hot {
-  background: #ff5722;
+  background: var(--color-hot);
   color: white;
 }
 
 .badge.new {
-  background: #4caf50;
+  background: var(--color-new);
   color: white;
 }
 
 .stock-status {
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 500;
 }
 
 .status-in-stock {
-  background: #e8f5e9;
-  color: #2e7d32;
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--color-success);
 }
 
 .status-low-stock {
-  background: #fff3e0;
-  color: #ef6c00;
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--color-warning);
 }
 
 .status-out-of-stock {
-  background: #ffebee;
-  color: #c62828;
+  background: rgba(248, 113, 113, 0.1);
+  color: var(--color-error);
 }
 
 .status-preorder {
-  background: #e3f2fd;
-  color: #1565c0;
+  background: rgba(167, 139, 250, 0.1);
+  color: var(--color-preorder);
 }
 
 .actions {
@@ -166,31 +178,35 @@
   gap: 8px;
 }
 
-.btn-edit, .btn-delete {
+.btn-edit,
+.btn-delete {
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: var(--radius-md);
   font-size: 13px;
   cursor: pointer;
   text-decoration: none;
-  border: none;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
 }
 
 .btn-edit {
-  background: #e3f2fd;
-  color: #1565c0;
+  background: rgba(96, 165, 250, 0.1);
+  color: var(--color-blue);
 }
 
 .btn-edit:hover {
-  background: #bbdefb;
+  background: rgba(96, 165, 250, 0.2);
+  border-color: rgba(96, 165, 250, 0.3);
 }
 
 .btn-delete {
-  background: #ffebee;
-  color: #c62828;
+  background: rgba(248, 113, 113, 0.1);
+  color: var(--color-error);
 }
 
 .btn-delete:hover {
-  background: #ffcdd2;
+  background: rgba(248, 113, 113, 0.2);
+  border-color: rgba(248, 113, 113, 0.3);
 }
 
 .pagination {
@@ -203,19 +219,27 @@
 
 .pagination button {
   padding: 8px 16px;
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
   cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.pagination button:hover:not(:disabled) {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-border-light);
 }
 
 .pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  color: var(--color-text-muted);
 }
 
 .pagination span {
-  color: #666;
+  color: var(--color-text-secondary);
 }
 
 .modal-overlay {
@@ -224,7 +248,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -232,19 +257,22 @@
 }
 
 .modal {
-  background: white;
+  background: var(--color-bg-card);
   padding: 24px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   max-width: 400px;
   width: 90%;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
 }
 
 .modal h3 {
   margin: 0 0 16px;
+  color: var(--color-text-primary);
 }
 
 .modal p {
-  color: #666;
+  color: var(--color-text-secondary);
   margin-bottom: 24px;
 }
 
@@ -256,17 +284,26 @@
 
 .btn-cancel {
   padding: 10px 20px;
-  border: 1px solid #ddd;
-  background: white;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
   cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background: var(--color-bg-secondary);
 }
 
 .btn-confirm-delete {
   padding: 10px 20px;
-  background: #c62828;
+  background: var(--color-error);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   cursor: pointer;
+}
+
+.btn-confirm-delete:hover {
+  opacity: 0.9;
 }

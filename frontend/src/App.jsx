@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import ProductListPage from "./pages/ProductListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import AdminLayout from "./pages/admin/AdminLayout";
 import ProductListAdmin from "./pages/admin/ProductListAdmin";
 import ProductFormPage from "./pages/admin/ProductFormPage";
@@ -46,6 +47,10 @@ function App() {
                   <Route
                     path="/cart"
                     element={<CartPage updateCartCount={updateCartCount} />}
+                  />
+                  <Route
+                    path="/checkout"
+                    element={<CheckoutPage updateCartCount={updateCartCount} />}
                   />
                 </Routes>
               </main>

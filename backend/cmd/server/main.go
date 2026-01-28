@@ -24,12 +24,13 @@ func main() {
 		log.Fatalf("無法連接資料庫: %v", err)
 	}
 
-	// 初始化商品 Repository 並建立資料表
+	// 初始化 Repositories
 	productRepo := repository.NewProductRepository(db)
 	cartRepo := repository.NewCartRepository()
+	orderRepo := repository.NewOrderRepository(db)
 
 	// 設定路由
-	r := routes.SetupRouter(productRepo, cartRepo)
+	r := routes.SetupRouter(productRepo, cartRepo, orderRepo)
 
 	log.Println("K-pop Shop API Server starting on :8080...")
 	if err := r.Run(":8080"); err != nil {

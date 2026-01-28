@@ -10,7 +10,7 @@ export const productApi = {
     if (params.search) query.append('search', params.search)
     if (params.page) query.append('page', params.page)
     if (params.pageSize) query.append('page_size', params.pageSize)
-    
+
     const response = await fetch(`${API_BASE_URL}/products?${query}`)
     if (!response.ok) throw new Error('Failed to fetch products')
     return response.json()
@@ -94,6 +94,21 @@ export const cartApi = {
       credentials: 'include'
     })
     if (!response.ok) throw new Error('Failed to clear cart')
+    return response.json()
+  }
+}
+
+// 訂單相關 API
+export const orderApi = {
+  // 建立訂單
+  async createOrder(data) {
+    const response = await fetch(`${API_BASE_URL}/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    })
+    if (!response.ok) throw new Error('Failed to create order')
     return response.json()
   }
 }
